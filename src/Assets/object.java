@@ -1,11 +1,11 @@
 package Assets;
 
 public abstract class object {
-	private double mass;     			// one double - mass of rocket
-	private double volume;   			// one double - volume of rocket
-	private double velocity; 			// array of 3 doubles - vx,vy,vz
-	private double pos;      			// array of 3 doubles - sx,sy,sz
-	private double max_acceleration; 	// one double - maximum acceleration of a rocket
+	public double mass;     			// one double - mass of rocket
+	public double volume;   			// one double - volume of rocket
+	public double[] velocity; 			// array of 3 doubles - vx,vy,vz
+	public double[] pos;      			// array of 3 doubles - sx,sy,sz
+	public double max_acceleration; 	// one double - maximum acceleration of a rocket
 	
 	public void set_pos(double x, double y, double z) {
 		/* set pos array values */
