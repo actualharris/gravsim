@@ -2,19 +2,21 @@ package Assets;
 
 import Physics.Physics;
 
-public class Planet {
+public class Planet extends object{
 	
 	double planet_radius, planet_density;
 	String planet_name;
 	
-	Planet(double radius, double density, String name) {
+	Planet(double mass, double[] pos, double[] vel, double radius, String name) {
 		double planet_radius = radius;
-		double planet_density = density;
 		String planet_name = name;
+		mass=mass;
+		vel = vel;
+		pos = pos;
 	}
 	
-	double getforce(double dist_from_planet, double rocket_mass) {
-		double planet_mass = Physics.getSphereMass(planet_radius, planet_density);
-		return 0.0;
+	public double getRadius() {
+		return planet_radius;
 	}
+	
 }
