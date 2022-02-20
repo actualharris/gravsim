@@ -29,7 +29,6 @@ public abstract class object {
 		// TODO: change 1 to some value of t
 		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, 1);
 		setVel(new_velocity[0],new_velocity[1]);
-		// TODO: add collision check. Maybe not here though?
 	}
 
 	public void updatePos(double[] net_force) {
