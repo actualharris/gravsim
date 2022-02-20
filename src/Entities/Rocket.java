@@ -5,13 +5,16 @@ import Physics.Physics;
 public class Rocket extends object {
 	
 	double fuel_percentage;
+	String rocket_sprite;
+	String rocket_sprite_accelerating;
+	String rocket_sprite_decelerating;
+	double[] pos;
+	double[] velocity;
 	
-	public Rocket(double mass, double volume, double[] pos, double[] vel, double max_acceleration, double fuel_percentage) {
+	public Rocket(double mass, double max_acceleration, double fuel_percentage) {
 		mass=mass;
-		volume=volume;
-		vel = vel;
-		pos = pos;
 		max_acceleration = max_acceleration;
+		fuel_percentage = fuel_percentage;
 	}
 	
 	public Rocket(Rocket r) {
@@ -24,11 +27,10 @@ public class Rocket extends object {
 		fuel_percentage = percentage;
 	}
 	
-	public void accelerate(boolean direction) {
-		/* accelerate by max_acceleration */
-		/* calculate velocity */
-		/* call update_vel to update velocity */
-		/* if direction == true, accelerate. Else, decelerate */
+	public void set_rocket_sprite(String sprite, String accelerating_sprite, String decelerating_sprite) {
+		rocket_sprite = sprite;
+		rocket_sprite_accelerating = accelerating_sprite;
+		rocket_sprite_decelerating = decelerating_sprite;
 	}
 	
 	public boolean didCollide(Planet o) {
