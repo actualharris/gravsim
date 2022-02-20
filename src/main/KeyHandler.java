@@ -5,22 +5,38 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+	public boolean upPressed, downPressed;
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
+		int code = e.getKeyCode();
+		
+		if (code == KeyEvent.VK_UP) {
+			upPressed = true;
+			//System.out.println("UP PRESSED");
+		}
+		if (code == KeyEvent.VK_DOWN) {
+			downPressed = true;
+			//System.out.println("DOWN PRESSED");
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
+		int code = e.getKeyCode();
+		
+		if (code == KeyEvent.VK_UP) {
+			upPressed = false;
+		}
+		if (code == KeyEvent.VK_DOWN) {
+			downPressed = false;
+		}
 	}
 
 }

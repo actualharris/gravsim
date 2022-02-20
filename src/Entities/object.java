@@ -1,4 +1,4 @@
-package Assets;
+package Entities;
 
 import Physics.Physics;
 

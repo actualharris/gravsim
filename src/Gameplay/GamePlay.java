@@ -1,15 +1,9 @@
 package Gameplay;
 
-import Assets.object;
+import Entities.object;
 
 public class GamePlay {
-	String playerName;
-	int playerPoints;
 	public static object[] objectsOnScreen;
-	
-	public void setPlayerName(String name) {
-		playerName = name;
-	}
 	
 	public void addObject(object o) {
 		int len = objectsOnScreen.length;

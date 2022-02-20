@@ -1,4 +1,4 @@
-package Assets;
+package Entities;
 
 import Physics.Physics;
 
@@ -12,6 +12,16 @@ public class Rocket extends object {
 		vel = vel;
 		pos = pos;
 		max_acceleration = max_acceleration;
+	}
+	
+	public Rocket(Rocket r) {
+		mass = r.mass;
+		volume = r.volume;
+		max_acceleration = r.max_acceleration;
+	}
+	
+	public void setFuelPercentage(float percentage) {
+		fuel_percentage = percentage;
 	}
 	
 	public void accelerate(boolean direction) {
