@@ -5,8 +5,12 @@ import javax.swing.JFrame;
 public class MainApp {
 
 	public static void main(String[] args) {
-		
+
 		/*
+
+		IDEAL GAME LOOP.
+		NOT CODE, JUST IDEA.
+
 		Menu:
 			1. View scoreboard
 			2. Play Game
@@ -45,20 +49,22 @@ public class MainApp {
 				}
 		*/
 
-		
+		// Create new window
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("GravSim");
-		
+
+		// Create GamePanel object to handle game loop
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
-		
+
 		window.pack();
-		
+
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-		
+
+		// Start thread handling game
 		gamePanel.startGameThread();
 	}
 

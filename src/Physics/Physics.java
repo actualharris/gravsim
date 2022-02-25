@@ -59,15 +59,25 @@ public class Physics {
 
 	/*
 		Given radius and density of a sphere, calculates mass.
+		Returns a double
 	*/
 	public static double getSphereMass(double radius, double density) {
 		return (4/3)*Math.PI*Math.pow(radius,3)*density;
 	}
 
+	/*
+		Given two points in a 2D plane, returns distance between them
+		Returns: double
+	*/
 	public static double getDistance(double x1, double y1, double x2, double y2) {
 		return Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
 	}
 
+	/*
+		Given two points in a 2D plane, get angle between line passing through the two points
+		and the x axis in RADIANS
+		Returns: double
+	*/
 	public static double getAngle(double x1, double y1, double x2, double y2) {
 		return Math.atan((y2-y1)/(x2-x1));
 	}

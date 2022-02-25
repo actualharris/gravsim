@@ -3,11 +3,10 @@ package Entities;
 import Physics.Physics;
 
 public abstract class Entity {
-	public double mass;     			// one double - mass of rocket
-	public double volume;   			// one double - volume of rocket
+	public double mass;     			// one double - mass of entity
+	public double volume;   			// one double - volume of entity
 	public double[] velocity; 			// array of 2 doubles - vx,vy
 	public double[] pos;      			// array of 2 doubles - sx,sy
-	public double max_acceleration; 	// one double - maximum acceleration of a rocket
 
 	public void setPos(double x, double y) {
 		/* set pos array values */
@@ -22,22 +21,31 @@ public abstract class Entity {
 	}
 
 	public double[] getEffectiveForce(Entity o) {
+		/*
+			Get effeective force acting on an object
+		*/
 		return Physics.gravForce(mass, o.mass, velocity[0], velocity[1], o.velocity[0], o.velocity[1]);
 	}
 
-	public void updateVel(double[] net_force) {
-		// TODO: change 1 to some value of t
-		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, 1);
+	public void updateVel(double[] net_force, double t) {
+		/*
+			Calls the physics newVel method
+			Updates the velocity of the object.
+			Doesn't return anything.
+		*/
+		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, t);
 		setVel(new_velocity[0],new_velocity[1]);
 	}
 
-	public void updatePos(double[] net_force) {
-		// TODO: change 1 to some value of t
-		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, 1);
+	public void updatePos(double[] net_force, double t) {
+		/*
+			Calls the physics newVel and newPos methods
+			Updates the position of the object.
+			Doesn't return anything.
+		*/
+		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, t);
 		double[] new_position = Physics.newPos(velocity[0], velocity[1], new_velocity[0], new_velocity[1], net_force, mass);
-		//setVel(new_velocity[0],new_velocity[1]);
 		setPos(new_position[0],new_position[1]);
-		// TODO: add collision check. Maybe not here though?
 	}
 
 }
