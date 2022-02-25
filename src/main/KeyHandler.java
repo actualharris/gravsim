@@ -22,10 +22,12 @@ public class KeyHandler implements KeyListener {
 		if (code == KeyEvent.VK_UP) {
 			upPressed = true;
 			// TODO: gotta handle player movements here, dk how.
+			System.out.println("PRESSED UP");
 		}
 		if (code == KeyEvent.VK_DOWN) {
 			downPressed = true;
 			// TODO: gotta handle player movements here, dk how.
+			System.out.println("PRESSED DOWN");
 		}
 	}
 

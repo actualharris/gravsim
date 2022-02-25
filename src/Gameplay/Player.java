@@ -18,7 +18,7 @@ public class Player {
 	Rocket rocket;
 	KeyHandler handler;
 	GamePanel panel;
-	
+
 	public void setPlayerName(String name) {
 		playerName = name;
 	}
@@ -45,18 +45,20 @@ public class Player {
 		handler = kh;
 	}
 
+	//player.updatePos()
+
 	public void update() {
 		if (handler.upPressed == true) {
 			// accelerate
+			this.rocket.accelerate();
 		} else if (handler.downPressed == true) {
 			// decelerate
+			this.rocket.decelerate();
 		}
 		// update velocity
 	}
-	
+
 	public void draw(Graphics g) {
-		this.rocket.setPos(300.0, 600.0);
-		System.out.println((int) rocket.pos[0]+"   "+(int) rocket.pos[1]);
 		g.setColor(Color.white);
 		g.fillRect((int) rocket.pos[0],(int) rocket.pos[1], 10, 10);
 	}

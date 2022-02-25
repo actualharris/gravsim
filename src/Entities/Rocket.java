@@ -57,7 +57,7 @@ public class Rocket extends Entity {
 		//rocket_sprite_accelerating = accelerating_sprite;
 		//rocket_sprite_decelerating = decelerating_sprite;
 	}
-	
+
 	public void setPos(double x, double y) {
 		/* set pos array values */
 		this.pos[0] = x;
@@ -69,15 +69,21 @@ public class Rocket extends Entity {
 		velocity[0] = x;
 		velocity[1] = y;
 	}
-	
+
 	public void accelerate() {
 		this.setFuelPercentage(this.fuel_percentage-1);
 		double[] force = {2,3};
 		this.updateVel(force, 1);
+		// The next line is only for debug.
+		// This isn't how the actual rocket will move.
+		this.setPos(this.pos[0]+10, this.pos[1]+10);
 	}
 	public void decelerate() {
 		this.setFuelPercentage(this.fuel_percentage-1);
 		double[] force = {-2,-3};
 		this.updateVel(force, 1);
+		// The next line is only for debug.
+		// This isn't how the actual rocket will move.
+		this.setPos(this.pos[0]-10, this.pos[1]-10);
 	}
 }
