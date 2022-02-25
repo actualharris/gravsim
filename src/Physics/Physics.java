@@ -1,9 +1,21 @@
 package Physics;
 
 public class Physics {
+	/*
+		Class to handle all physics of the world.
+		Contains methods to find force, distance and velocity updates
+	*/
 
+	/* Universal Gravitation Constant */
 	private static double univGravConst = 6.67408e-11;
 
+	/*
+		Method to calculate the gravitational force
+		exerted by object of mass m1 (pos x1,y1)
+		on object of mass m2 (pos x2,y2)
+
+		Returns array of doubles: [x component of force, y component of force]
+	*/
 	public static double[] gravForce(double m1, double m2, double x1, double y1, double x2, double y2) {
 		/* F = Gmm/r^2 */
 		/* Returns x and y components of effectivve force between objects */
@@ -15,6 +27,11 @@ public class Physics {
 		return ret_array;
 	}
 
+	/*
+		Given the force acting, mass of object (mass), initial x and y velocities (ux,uy) and the time passed (t)
+		Calculates the updated velocity of the object (vx,vy)
+		Returns a tuple of doubles [vx, vy]
+	*/
 	public static double[] newVel(double ux, double uy, double[] force, double mass, double t) {
 		/* v = u+at */
 		double ax = force[0]/mass;
@@ -25,6 +42,11 @@ public class Physics {
 		return vel;
 	}
 
+	/*
+		Given the force acting, mass of object (mass), initial x and y velocities (ux,uy) and final x and y velocities (vx, vy)
+		Calculates the updated position of the object (sx,sy)
+		Returns a tuple of doubles [sx, sy]
+	*/
 	public static double[] newPos(double ux, double uy, double vx, double vy, double[] force, double mass) {
 		/* v2 - u2 = 2as */
 		double ax = force[0]/mass;
@@ -35,6 +57,9 @@ public class Physics {
 		return s;
 	}
 
+	/*
+		Given radius and density of a sphere, calculates mass.
+	*/
 	public static double getSphereMass(double radius, double density) {
 		return (4/3)*Math.PI*Math.pow(radius,3)*density;
 	}

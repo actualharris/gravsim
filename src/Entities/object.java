@@ -2,7 +2,7 @@ package Entities;
 
 import Physics.Physics;
 
-public abstract class object {
+public abstract class Entity {
 	public double mass;     			// one double - mass of rocket
 	public double volume;   			// one double - volume of rocket
 	public double[] velocity; 			// array of 2 doubles - vx,vy
@@ -21,7 +21,7 @@ public abstract class object {
 		velocity[1] = y;
 	}
 
-	public double[] getEffectiveForce(object o) {
+	public double[] getEffectiveForce(Entity o) {
 		return Physics.gravForce(mass, o.mass, velocity[0], velocity[1], o.velocity[0], o.velocity[1]);
 	}
 

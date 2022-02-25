@@ -9,10 +9,10 @@ public class Planet extends object{
 	String planet_sprite;
 	double mass;
 	
-	Planet(double mass, double radius, String name) {
+	Planet(double mass_, double radius, String name) {
 		planet_radius = radius;
 		planet_name = name;
-		mass = mass;
+		mass = mass_;
 	}
 	
 	public double getRadius() {

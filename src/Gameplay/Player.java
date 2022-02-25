@@ -1,6 +1,7 @@
 package Gameplay;
 
 import Entities.Rocket;
+import Entities.RocketCollection;
 
 public class Player {
 	String playerName;
@@ -14,11 +15,13 @@ public class Player {
 	Player() {
 		playerName = "USR";
 		playerPoints = 0;
+		rocket = RocketCollection.r0;
 	}
 	
-	Player(String pName) {
+	Player(String pName, Rocket r) {
 		playerName = pName;
 		playerPoints = 0;
+		rocket = r;
 	}
 	
 }

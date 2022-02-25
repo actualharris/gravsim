@@ -1,20 +1,22 @@
 package Entities;
 
-import Physics.Physics;
+import java.awt.Image;
+
+//import Physics.Physics;
 
 public class Rocket extends object {
 	
 	double fuel_percentage;
-	String rocket_sprite;
-	String rocket_sprite_accelerating;
-	String rocket_sprite_decelerating;
+	Image rocket_sprite;
+	Image[] rocket_sprite_accelerating;
+	Image[] rocket_sprite_decelerating;
 	double[] pos;
 	double[] velocity;
 	
-	public Rocket(double mass, double max_acceleration, double fuel_percentage) {
-		mass=mass;
-		max_acceleration = max_acceleration;
-		fuel_percentage = fuel_percentage;
+	public Rocket(double mass_, double max_acceleration_, double fuel_percentage_) {
+		mass=mass_;
+		max_acceleration = max_acceleration_;
+		fuel_percentage = fuel_percentage_;
 	}
 	
 	public Rocket(Rocket r) {
@@ -28,16 +30,12 @@ public class Rocket extends object {
 	}
 	
 	public void set_rocket_sprite(String sprite, String accelerating_sprite, String decelerating_sprite) {
-		rocket_sprite = sprite;
-		rocket_sprite_accelerating = accelerating_sprite;
-		rocket_sprite_decelerating = decelerating_sprite;
+		
+		// TODO: Load sprite images into variables
+		
+		//rocket_sprite = sprite;
+		//rocket_sprite_accelerating = accelerating_sprite;
+		//rocket_sprite_decelerating = decelerating_sprite;
 	}
-	
-	public boolean didCollide(Planet o) {
-		double dist = Physics.getDistance(pos[0],pos[1],o.pos[0],o.pos[1]);
-		if(dist < o.getRadius()) {
-			return true;
-		}
-		return false;
-	}
+
 }
