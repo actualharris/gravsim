@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import Gameplay.Player;
+
 public class GamePanel extends JPanel implements Runnable {
 	/*
 		Class to handle game loop
@@ -24,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 	KeyHandler keyH = new KeyHandler();
 	// game thread
 	Thread gameThread;
+	Player player = new Player(this, keyH);
 
 	// Player Position
 	// TODO: change this based on level, i guess
@@ -41,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// TODO: change it to image of stars from assets
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
-		// add key evvent listener
+		// add key event listener
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
@@ -79,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		// TODO: add this in
 		// This method deals with updating positions of objects every game loop
-
+		player.update();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -91,8 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		g2.setColor(Color.white);
-		g2.fillRect(playerX, playerY, 10, 10);
+		player.draw(g2);
 
 		g2.dispose();
 	}

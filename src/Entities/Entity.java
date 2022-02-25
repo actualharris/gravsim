@@ -9,19 +9,15 @@ public abstract class Entity {
 
 	public double mass;     			// one double - mass of entity
 	public double volume;   			// one double - volume of entity
-	public double[] velocity; 			// array of 2 doubles - vx,vy
-	public double[] pos;      			// array of 2 doubles - sx,sy
+	public double[] velocity = new double[2]; 			// array of 2 doubles - vx,vy
+	public double[] pos = new double[2];      			// array of 2 doubles - sx,sy
 
 	public void setPos(double x, double y) {
 		/* set pos array values */
-		pos[0] = x;
-		pos[1] = y;
 	}
 
 	public void setVel(double x, double y) {
 		/* set velocity array values */
-		velocity[0] = x;
-		velocity[1] = y;
 	}
 
 	public double[] getEffectiveForce(Entity o) {

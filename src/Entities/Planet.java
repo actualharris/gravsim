@@ -34,4 +34,15 @@ public class Planet extends Entity{
 		//planet_sprite = sprite;
 	}
 
+	public void setPos(double x, double y) {
+		/* set pos array values */
+		this.pos[0] = x;
+		this.pos[1] = y;
+	}
+	
+	public void setVel(double x, double y) {
+		/* set velocity array values */
+		velocity[0] = x;
+		velocity[1] = y;
+	}
 }
