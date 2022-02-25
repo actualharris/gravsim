@@ -3,6 +3,10 @@ package Entities;
 import Physics.Physics;
 
 public abstract class Entity {
+	/*
+		Class Entity defines any object in space that has a mass and some velocity.
+	*/
+
 	public double mass;     			// one double - mass of entity
 	public double volume;   			// one double - volume of entity
 	public double[] velocity; 			// array of 2 doubles - vx,vy
@@ -22,7 +26,7 @@ public abstract class Entity {
 
 	public double[] getEffectiveForce(Entity o) {
 		/*
-			Get effeective force acting on an object
+			Get effective force acting on an object
 		*/
 		return Physics.gravForce(mass, o.mass, velocity[0], velocity[1], o.velocity[0], o.velocity[1]);
 	}

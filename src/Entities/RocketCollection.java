@@ -1,6 +1,11 @@
 package Entities;
 
 public class RocketCollection {
+	/*
+		Class holding a collection of all available rockets.
+		New rockets could be defined here
+	*/
+
 	// TODO: set sprite images for each rocket
 	public static Rocket r0 = new Rocket(1000,30,60);
 	public static Rocket r1 = new Rocket(1000,30,60);

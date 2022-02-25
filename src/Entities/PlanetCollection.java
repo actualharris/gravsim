@@ -1,6 +1,11 @@
 package Entities;
 
 public class PlanetCollection {
+	/*
+		Class holding a collection of all available planets.
+		New planets could be defined here
+	*/
+
 	// TODO: make planets, assign sprites
 	public static Planet p0 = new Planet(1000000000, 192910, "Gallifrey");
 	public static Planet p1 = new Planet(1000000000, 192910, "Earth");

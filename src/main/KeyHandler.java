@@ -4,35 +4,36 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+	/*
+		Class to handle user keypresses
+	*/
 
 	public boolean upPressed, downPressed;
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 		int code = e.getKeyCode();
-		
+
 		if (code == KeyEvent.VK_UP) {
 			upPressed = true;
-			//System.out.println("UP PRESSED");
-			// player.handleKeyUp();
+			// TODO: gotta handle player movements here, dk how.
 		}
 		if (code == KeyEvent.VK_DOWN) {
 			downPressed = true;
-			//System.out.println("DOWN PRESSED");
-			// player.handleKeyDown();
+			// TODO: gotta handle player movements here, dk how.
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 		int code = e.getKeyCode();
-		
+
 		if (code == KeyEvent.VK_UP) {
 			upPressed = false;
 		}
