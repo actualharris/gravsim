@@ -55,11 +55,11 @@ public class Player {
 			// decelerate
 			this.rocket.decelerate();
 		}
-		// update velocity
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect((int) rocket.pos[0],(int) rocket.pos[1], 10, 10);
+		//g.setColor(Color.white);
+		//g.fillRect((int) rocket.pos[0],(int) rocket.pos[1], 10, 10);
+		g.drawImage(rocket.rocket_sprite, (int)rocket.pos[0], (int)rocket.pos[1], 80, 80, null);
 	}
 }

@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Gameplay.Player;
@@ -27,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// game thread
 	Thread gameThread;
 	Player player = new Player(this, keyH);
+	
 
 	// Player Position
 	// TODO: change this based on level, i guess
@@ -92,8 +97,19 @@ public class GamePanel extends JPanel implements Runnable {
 		*/
 		super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D)g;
-
+		Graphics2D g2 = (Graphics2D) g;
+		
+		BufferedImage background, playFrame;
+		try {
+			background = ImageIO.read(new File("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\background.png"));
+			playFrame = ImageIO.read(new File("C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\misc\\play_frame.png"));
+			g.drawImage(background, 0, 0, this);
+			g.drawImage(playFrame, 0, 0, this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		player.draw(g2);
 
 		g2.dispose();

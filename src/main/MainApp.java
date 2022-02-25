@@ -1,10 +1,12 @@
 package main;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 public class MainApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		/*
 
@@ -54,7 +56,7 @@ public class MainApp {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("GravSim");
-
+		
 		// Create GamePanel object to handle game loop
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);

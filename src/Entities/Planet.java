@@ -1,6 +1,11 @@
 package Entities;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Planet extends Entity{
 	/*
@@ -31,7 +36,14 @@ public class Planet extends Entity{
 	// set sprite of planet
 	public void set_planet_sprite(String sprite) {
 		// TODO: load image of sprite into the variable
-		//planet_sprite = sprite;
+		BufferedImage img;
+		try {
+			img = ImageIO.read(new File(sprite));
+			planet_sprite = img;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void setPos(double x, double y) {
