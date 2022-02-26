@@ -23,7 +23,8 @@ public class Physics {
 		double angle = getAngle(x1,y1,x2,y2);
 		double force_x = force*Math.cos(angle);
 		double force_y = force*Math.sin(angle);
-		double[] ret_array = {force_x,force_y};
+		double[] ret_array = new double[] {force_x,force_y};
+		//System.out.println("PHYSICS: "+angle+"\t"+force_x+"\t"+force_y+"\t"+ret_array[0]+"\t"+ret_array[1]);
 		return ret_array;
 	}
 
@@ -38,7 +39,7 @@ public class Physics {
 		double ay = force[1]/mass;
 		double vx = ux + ax*t;
 		double vy = uy + ay*t;
-		double[] vel = {vx,vy};
+		double[] vel = new double[] {vx,vy};
 		return vel;
 	}
 
@@ -53,7 +54,7 @@ public class Physics {
 		double ay = force[1]/mass;
 		double sx = (Math.pow(vx, 2) - Math.pow(ux, 2))/(2*ax);
 		double sy = (Math.pow(vy, 2) - Math.pow(uy, 2))/(2*ay);
-		double s[] = {sx,sy};
+		double s[] = new double[] {sx,sy};
 		return s;
 	}
 
@@ -79,7 +80,17 @@ public class Physics {
 		Returns: double
 	*/
 	public static double getAngle(double x1, double y1, double x2, double y2) {
+		if (x2 == x1) {
+			return Math.PI/2;
+		}
 		return Math.atan((y2-y1)/(x2-x1));
+	}
+	
+	public static double getAngle(double v1, double v2) {
+		if (v1 == 0) {
+			return Math.PI/2;
+		}
+		return Math.atan(v2/v1);
 	}
 	
 	/*

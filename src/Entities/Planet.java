@@ -14,7 +14,7 @@ public class Planet extends Entity{
 	*/
 
 	double planet_radius, planet_density;
-	String planet_name;
+	public String planet_name;
 	public double[] pos = new double[2];
 	public double[] velocity = new double[2];
 	Image planet_sprite;

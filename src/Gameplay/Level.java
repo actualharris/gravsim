@@ -37,18 +37,21 @@ public class Level {
 		double[][] new_positions = new double[this.planets.length][2];
 		double[][] new_velocities = new double[this.planets.length][2];
 		for (int i = 0; i < this.planets.length; i++) {
+			double[] totalForce = new double[2];
 			for (int j = 0; j < this.planets.length; j++) {
 				if (i != j) {
 					double[] force = new double[2];
 					force = Physics.gravForce(this.planets[i].mass,this.planets[j].mass,this.planets[i].velocity[0],this.planets[i].velocity[1],this.planets[j].velocity[0],this.planets[j].velocity[1]);
-					double[] newVelocity = new double[2];
-					newVelocity = Physics.newVel(this.planets[i].velocity[0], this.planets[i].velocity[1], force, this.planets[i].mass, 1);
-					double[] newPosition = new double[2];
-					newPosition = Physics.newPos(this.planets[i].velocity[0], this.planets[i].velocity[1], newVelocity[0], newVelocity[1], force, this.planets[i].mass);
-					new_positions[i] = newPosition;
-					new_velocities[i] = newVelocity;
+					totalForce[0] += force[0];
+					totalForce[1] += force[1];
 				}
 			}
+			double[] newVelocity = new double[2];
+			newVelocity = Physics.newVel(this.planets[i].velocity[0], this.planets[i].velocity[1], totalForce, this.planets[i].mass, 1);
+			double[] newPosition = new double[2];
+			newPosition = Physics.newPos(this.planets[i].velocity[0], this.planets[i].velocity[1], newVelocity[0], newVelocity[1], totalForce, this.planets[i].mass);
+			new_positions[i] = newPosition;
+			new_velocities[i] = newVelocity;
 		}
 		for (int i = 0; i < this.planets.length; i++) {
 			this.planets[i].setPos(new_positions[i][0], new_positions[i][1]);

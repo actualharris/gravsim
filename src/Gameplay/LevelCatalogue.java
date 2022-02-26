@@ -21,9 +21,9 @@ public class LevelCatalogue {
 	}
 	
 	public LevelCatalogue() {
-		Planet[] plist = new Planet[] {PlanetCollection.p0,PlanetCollection.p3};
-		double[][] positions = new double[][] {{0,0},{80,8}};
-		double[][] velocities = new double[][] {{20,4},{5,3}};
+		Planet[] plist = new Planet[] {PlanetCollection.p0,PlanetCollection.p1};
+		double[][] positions = new double[][] {{640, 360},{0,0}};
+		double[][] velocities = new double[][] {{0,0},{0,0}};
 		l0 = setLevel(plist, positions, velocities);
 		
 		plist = new Planet[] {PlanetCollection.p1,PlanetCollection.p2,PlanetCollection.p3,PlanetCollection.p0};

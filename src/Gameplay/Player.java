@@ -14,7 +14,7 @@ public class Player {
 
 	String playerName;
 	int playerPoints;
-	Rocket rocket;
+	public Rocket rocket;
 	KeyHandler handler;
 	GamePanel panel;
 

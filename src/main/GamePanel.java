@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Select a level from the level catalogue.
 	LevelCatalogue n = new LevelCatalogue();
-	Level level = LevelCatalogue.l2;
+	Level level = LevelCatalogue.l0;
 
 	// FPS
 	int FPS = 60;
@@ -109,8 +109,13 @@ public class GamePanel extends JPanel implements Runnable {
 	*/
 	public void update() {
 		// This method deals with updating positions of objects every game loop
-		player.update();
-		level.update();
+		this.player.update();
+		//System.out.println(this.player.rocket.velocity[0]+"\t"+this.player.rocket.velocity[1]);
+		this.level.update();
+		for (int i = 0; i < level.planets.length; i++) {
+			System.out.println(level.planets[i].planet_name+": "+level.planets[i].pos[0]+"\t"+level.planets[i].pos[1]);
+		}
+		System.out.println();
 	}
 
 	/*

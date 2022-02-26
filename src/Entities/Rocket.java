@@ -23,7 +23,7 @@ public class Rocket extends Entity {
 	Image[] rocket_sprite_decelerating = new Image[2];
 	double max_acceleration;
 	public double[] pos = new double[2];
-	double[] velocity = new double[2];
+	public double[] velocity = new double[2];
 	String rocketName = "";
 	float fuel_burned_per_iter = (float) 0.5;
 	float force_per_fuel_burnt = 2000000;
@@ -107,8 +107,8 @@ public class Rocket extends Entity {
 
 	public void setVel(double x, double y) {
 		/* set velocity array values */
-		velocity[0] = x;
-		velocity[1] = y;
+		this.velocity[0] = x;
+		this.velocity[1] = y;
 	}
 
 	public void accelerate() {
@@ -117,11 +117,11 @@ public class Rocket extends Entity {
 			TODO: Do this
 		*/
 		this.setFuelPercentage((float) (this.fuel_percentage-this.fuel_burned_per_iter));
-		//double acceleration = this.force_per_fuel_burnt / this.mass;
-		double acc_angle = this.velocity[1] / this.velocity[1];
+		double acc_angle = Physics.getAngle(this.velocity[0], this.velocity[1]);
 		double[] force = new double[2];
 		force = Physics.getComponents(this.force_per_fuel_burnt, acc_angle);
-		double[] newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
+		double[] newVelocity = new double[2];
+		newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
 		this.setVel(newVelocity[0], newVelocity[1]);
 		// The next line is only for debug.
 		// This isn't how the actual rocket will move.
@@ -134,13 +134,13 @@ public class Rocket extends Entity {
 			TODO: Do this
 		*/
 		this.setFuelPercentage((float) (this.fuel_percentage-this.fuel_burned_per_iter));
-		double acc_angle = this.velocity[1] / this.velocity[1];
+		double acc_angle = Physics.getAngle(this.velocity[0], this.velocity[1]);
 		double[] force = new double[2];
 		force = Physics.getComponents(this.force_per_fuel_burnt, acc_angle);
-		double[] newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
+		force[0] = -force[0]; force[1] = -force[1];
+		double[] newVelocity = new double[2];
+		newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
 		this.setVel(newVelocity[0], newVelocity[1]);
-		//double[] force = {-2,-3};
-		//this.updateVel(force, 1);
 		// The next line is only for debug.
 		// This isn't how the actual rocket will move.
 		//this.setPos(this.pos[0]-10, this.pos[1]-10);
