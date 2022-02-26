@@ -1,6 +1,5 @@
 package Gameplay;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import Entities.Rocket;
@@ -60,6 +59,7 @@ public class Player {
 	public void draw(Graphics g) {
 		//g.setColor(Color.white);
 		//g.fillRect((int) rocket.pos[0],(int) rocket.pos[1], 10, 10);
-		g.drawImage(rocket.rocket_sprite, (int)rocket.pos[0], (int)rocket.pos[1], 80, 80, null);
+		//g.drawImage(rocket.rocket_sprite, (int)rocket.pos[0], (int)rocket.pos[1], 80, 80, null);
+		this.rocket.draw(g);
 	}
 }

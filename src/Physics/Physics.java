@@ -81,4 +81,15 @@ public class Physics {
 	public static double getAngle(double x1, double y1, double x2, double y2) {
 		return Math.atan((y2-y1)/(x2-x1));
 	}
+	
+	/*
+	 	Given
+	*/
+	public static double[] getComponents(double a, double tan) {
+		double[] components = new double[2];
+		double angle = Math.atan(tan);
+		components[0] = Math.cos(angle) * a;
+		components[1] = Math.sin(angle) * a;
+		return components;
+	}
 }

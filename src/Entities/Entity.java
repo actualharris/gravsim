@@ -19,33 +19,4 @@ public abstract class Entity {
 	public void setVel(double x, double y) {
 		/* set velocity array values */
 	}
-
-	public double[] getEffectiveForce(Entity o) {
-		/*
-			Get effective force acting on an object
-		*/
-		return Physics.gravForce(mass, o.mass, velocity[0], velocity[1], o.velocity[0], o.velocity[1]);
-	}
-
-	public void updateVel(double[] net_force, double t) {
-		/*
-			Calls the physics newVel method
-			Updates the velocity of the object.
-			Doesn't return anything.
-		*/
-		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, t);
-		setVel(new_velocity[0],new_velocity[1]);
-	}
-
-	public void updatePos(double[] net_force, double t) {
-		/*
-			Calls the physics newVel and newPos methods
-			Updates the position of the object.
-			Doesn't return anything.
-		*/
-		double[] new_velocity = Physics.newVel(velocity[0], velocity[1], net_force, mass, t);
-		double[] new_position = Physics.newPos(velocity[0], velocity[1], new_velocity[0], new_velocity[1], net_force, mass);
-		setPos(new_position[0],new_position[1]);
-	}
-
 }

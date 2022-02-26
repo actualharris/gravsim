@@ -1,11 +1,14 @@
 package Entities;
 
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import Physics.Physics;
 
 //import Physics.Physics;
 
@@ -22,11 +25,18 @@ public class Rocket extends Entity {
 	public double[] pos = new double[2];
 	double[] velocity = new double[2];
 	String rocketName = "";
+	float fuel_burned_per_iter = (float) 0.5;
+	float force_per_fuel_burnt = 2000000;
 
 	/*
 		Constructor
 	*/
 	public Rocket(double mass_, double max_acceleration_, float fuel_percentage_, String name) {
+		/*
+			set sprite based on rocketName
+			TODO: Alternate sprites will be named '<rocketname>', '<rocketname_a1>', '<rocketname_a2>', '<rocketname_d1>', '<rocketname_d2>'
+			send those strings to the set_rocket_sprite func
+		*/
 		mass=mass_;
 		max_acceleration = max_acceleration_;
 		fuel_percentage = fuel_percentage_;
@@ -38,9 +48,13 @@ public class Rocket extends Entity {
 		Constructor
 	*/
 	public Rocket(Rocket r) {
+		/*
+			Default params
+		*/
 		mass = r.mass;
 		volume = r.volume;
 		max_acceleration = r.max_acceleration;
+		// TODO: generalize this line
 		rocketName = "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\rockets\\rocket1.png";
 		this.set_rocket_sprite(rocketName, rocketName, rocketName);
 	}
@@ -60,9 +74,13 @@ public class Rocket extends Entity {
 		decelerating_sprite - two images animating decelerating rocket
 	*/
 	public void set_rocket_sprite(String sprite, String accelerating_sprite, String decelerating_sprite) {
+		/*
+			Sets rocket sprites using paths to pngs
+		*/
 
 		// TODO: Load sprite images into variables
-		//rocket_sprite = sprite;
+		// accelerating_sprite -> accelerating_sprite1, accelerating_sprite2
+		// decelerating_sprite -> decelerating_sprite1, decelerating_sprite2
 		BufferedImage img0, img1, img2, img3, img4;
 		try {
 			img0 = ImageIO.read(new File(sprite));
@@ -79,7 +97,6 @@ public class Rocket extends Entity {
 			e.printStackTrace();
 			System.out.println("SOMETHING WRONG HERE.");
 		}
-		System.out.println("DONE!");
 	}
 
 	public void setPos(double x, double y) {
@@ -95,19 +112,46 @@ public class Rocket extends Entity {
 	}
 
 	public void accelerate() {
-		this.setFuelPercentage(this.fuel_percentage-1);
-		double[] force = {2,3};
-		this.updateVel(force, 1);
+		/*
+			Burn fuel and increase velocity
+			TODO: Do this
+		*/
+		this.setFuelPercentage((float) (this.fuel_percentage-this.fuel_burned_per_iter));
+		//double acceleration = this.force_per_fuel_burnt / this.mass;
+		double acc_angle = this.velocity[1] / this.velocity[1];
+		double[] force = new double[2];
+		force = Physics.getComponents(this.force_per_fuel_burnt, acc_angle);
+		double[] newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
+		this.setVel(newVelocity[0], newVelocity[1]);
 		// The next line is only for debug.
 		// This isn't how the actual rocket will move.
-		this.setPos(this.pos[0]+10, this.pos[1]+10);
+		//this.setPos(this.pos[0]+10, this.pos[1]+10);
 	}
+
 	public void decelerate() {
-		this.setFuelPercentage(this.fuel_percentage-1);
-		double[] force = {-2,-3};
-		this.updateVel(force, 1);
+		/*
+			Burn fuel and decrease velocity
+			TODO: Do this
+		*/
+		this.setFuelPercentage((float) (this.fuel_percentage-this.fuel_burned_per_iter));
+		double acc_angle = this.velocity[1] / this.velocity[1];
+		double[] force = new double[2];
+		force = Physics.getComponents(this.force_per_fuel_burnt, acc_angle);
+		double[] newVelocity = Physics.newVel(this.velocity[0], this.velocity[1], force, this.mass, 1);
+		this.setVel(newVelocity[0], newVelocity[1]);
+		//double[] force = {-2,-3};
+		//this.updateVel(force, 1);
 		// The next line is only for debug.
 		// This isn't how the actual rocket will move.
-		this.setPos(this.pos[0]-10, this.pos[1]-10);
+		//this.setPos(this.pos[0]-10, this.pos[1]-10);
+	}
+
+	public void draw(Graphics g) {
+		/*
+			Draws the rocket at its position
+			TODO: change sprite when accelerating/decelerating
+			TODO: set pos to middle of image if possible
+		*/
+		g.drawImage(this.rocket_sprite, (int)this.pos[0], (int)this.pos[1], 80, 80, null);
 	}
 }
