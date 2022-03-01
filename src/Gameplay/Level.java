@@ -12,7 +12,7 @@ public class Level {
 	*/
 
 	public Planet[] planets;
-	int[] arenaDimensions = {1280,720};
+	int[] arenaDimensions = {(int) (Physics.AstronomicalUnit*20),(int) (Physics.AstronomicalUnit*20)};;
 
 	public void addPlanets(Planet[] p) {
 		/*
@@ -20,7 +20,7 @@ public class Level {
 		*/
 		this.planets = new Planet[p.length];
 		for (int i = 0; i < p.length; i++) {
-			planets[i] = p[i];
+			this.planets[i] = p[i];
 		}
 	}
 
@@ -28,34 +28,36 @@ public class Level {
 		/*
 			Set dimensions of arena
 			This ISN'T the screen width.
+			// height and wodth in AU
 		*/
 		// TODO: Could also be {width, height}. Need to check that.
-		arenaDimensions = new int[] {height, width};
+		this.arenaDimensions = new int[] {(int) (height*Physics.AstronomicalUnit),(int) (width*Physics.AstronomicalUnit)};
 	}
 
 	public void update() {
-		double[][] new_positions = new double[this.planets.length][2];
-		double[][] new_velocities = new double[this.planets.length][2];
-		for (int i = 0; i < this.planets.length; i++) {
-			double[] totalForce = new double[2];
-			for (int j = 0; j < this.planets.length; j++) {
-				if (i != j) {
-					double[] force = new double[2];
-					force = Physics.gravForce(this.planets[i].mass,this.planets[j].mass,this.planets[i].velocity[0],this.planets[i].velocity[1],this.planets[j].velocity[0],this.planets[j].velocity[1]);
-					totalForce[0] += force[0];
-					totalForce[1] += force[1];
-				}
-			}
-			double[] newVelocity = new double[2];
-			newVelocity = Physics.newVel(this.planets[i].velocity[0], this.planets[i].velocity[1], totalForce, this.planets[i].mass, 1);
-			double[] newPosition = new double[2];
-			newPosition = Physics.newPos(this.planets[i].velocity[0], this.planets[i].velocity[1], newVelocity[0], newVelocity[1], totalForce, this.planets[i].mass);
-			new_positions[i] = newPosition;
-			new_velocities[i] = newVelocity;
-		}
-		for (int i = 0; i < this.planets.length; i++) {
-			this.planets[i].setPos(new_positions[i][0], new_positions[i][1]);
-			this.planets[i].setVel(new_velocities[i][0], new_velocities[i][1]);
-		}
+		/*
+			Updates position and velocities of all planets in the level
+			Based on all other planets in the level
+		*/
+		if (this.planets.length > 1) {
+      for (int i = 0; i < this.planets.length; i++) {
+      	double total_fx = 0;
+      	double total_fy = 0;
+      	for (int j = 0; j < this.planets.length; j++) {
+	    		if (i != j) {		// If it isn't the same planet, cos that would mean distance = 0
+	    			double[] force = Physics.gravForce(this.planets[i].mass, this.planets[j].mass, this.planets[i].position, this.planets[j].position);
+	    			double force_x = force[0];
+	    			double force_y = force[1];
+	    			total_fx += force_x;
+	    			total_fy += force_y;
+	    		}
+	    	}
+	    	this.planets[i].velocity[0] += Physics.newVel(total_fx, this.planets[i].mass);
+	    	this.planets[i].velocity[1] += Physics.newVel(total_fy, this.planets[i].mass);
+
+	    	this.planets[i].position[0] += Physics.newPos(this.planets[i].velocity[0]);
+	    	this.planets[i].position[1] += Physics.newPos(this.planets[i].velocity[1]);
+    	}
+  	}
 	}
 }

@@ -10,9 +10,6 @@ public class PlanetCollection {
 	// PROBLEM: Scaling of actual distance and mass etc. to distance on screen isn't done
 	// 					This makes all the planets fall in a pile lol
 	//					TODO: Do something about it
-	public static Planet p0 = new Planet(20, 100, "Sun", "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png");
-	public static Planet p1 = new Planet(10, 10, "Earth", "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png");
-	public static Planet p2 = new Planet(500, 43, "Mars", "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet3.png");
-	public static Planet p3 = new Planet(100, 19, "Jupiter", "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png");
-	public static Planet p4 = new Planet(100, 19, "Neptune", "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png");
+	public static Planet p0 = new Planet("Sun", 1.9891e30, 0.265474539, "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet1.png");
+	public static Planet p1 = new Planet("Earth", 5.97219e24, 0.2263496, "C:\\Users\\sirdm\\Documents\\projects\\gravsim\\assets\\images\\planets\\planet2.png");
 }

@@ -8,6 +8,9 @@ public class Physics {
 
 	/* Universal Gravitation Constant */
 	private static double univGravConst = 6.67408e-11;
+	public static double AstronomicalUnit = 149.6e6 * 1000;
+	private static double timestep = 3600 * 24; // 1 day
+	public static double scale = 250/AstronomicalUnit;
 
 	/*
 		Method to calculate the gravitational force
@@ -16,91 +19,61 @@ public class Physics {
 
 		Returns array of doubles: [x component of force, y component of force]
 	*/
-	public static double[] gravForce(double m1, double m2, double x1, double y1, double x2, double y2) {
+	public static double[] gravForce(double m1, double m2, double[] pos1, double[] pos2) {
 		/* F = Gmm/r^2 */
 		/* Returns x and y components of effectivve force between objects */
-		double force = (univGravConst*m1*m2)/Math.pow(getDistance(x1,y1,x2,y2), 2);
-		double angle = getAngle(x1,y1,x2,y2);
-		double force_x = force*Math.cos(angle);
-		double force_y = force*Math.sin(angle);
-		double[] ret_array = new double[] {force_x,force_y};
-		//System.out.println("PHYSICS: "+angle+"\t"+force_x+"\t"+force_y+"\t"+ret_array[0]+"\t"+ret_array[1]);
-		return ret_array;
+		double dist = getDistance(pos1,pos2);
+  	double force = (univGravConst*m1*m2)/Math.pow(dist, 2);
+  	double theta = getAngle(pos1,pos2);
+  	double force_x = Math.cos(theta)*force;
+  	double force_y = Math.sin(theta)*force;
+    double[] ret_array = new double[] {force_x,force_y};
+    return ret_array;
 	}
 
-	/*
-		Given the force acting, mass of object (mass), initial x and y velocities (ux,uy) and the time passed (t)
-		Calculates the updated velocity of the object (vx,vy)
-		Returns a tuple of doubles [vx, vy]
-	*/
-	public static double[] newVel(double ux, double uy, double[] force, double mass, double t) {
-		/* v = u+at */
-		double ax = force[0]/mass;
-		double ay = force[1]/mass;
-		double vx = ux + ax*t;
-		double vy = uy + ay*t;
-		double[] vel = new double[] {vx,vy};
-		return vel;
+	public static double newVel(double force, double mass) {
+		/* Calculate velocity from force and mass */
+		return force / mass * timestep;
 	}
 
-	/*
-		Given the force acting, mass of object (mass), initial x and y velocities (ux,uy) and final x and y velocities (vx, vy)
-		Calculates the updated position of the object (sx,sy)
-		Returns a tuple of doubles [sx, sy]
-	*/
-	public static double[] newPos(double ux, double uy, double vx, double vy, double[] force, double mass) {
-		/* v2 - u2 = 2as */
-		double ax = force[0]/mass;
-		double ay = force[1]/mass;
-		double sx = (Math.pow(vx, 2) - Math.pow(ux, 2))/(2*ax);
-		double sy = (Math.pow(vy, 2) - Math.pow(uy, 2))/(2*ay);
-		double s[] = new double[] {sx,sy};
-		return s;
+	public static double newPos(double v) {
+		/* Calculates position given velocity */
+		return v * timestep;
 	}
 
-	/*
-		Given radius and density of a sphere, calculates mass.
-		Returns a double
-	*/
-	public static double getSphereMass(double radius, double density) {
-		return (4/3)*Math.PI*Math.pow(radius,3)*density;
+	public static double getDistance(double[] pos1, double[] pos2) {
+		/*
+			Given two points in a 2D plane, returns distance between them
+			Returns: double
+		*/
+		return Math.sqrt(Math.pow(pos2[0]-pos1[0],2)+Math.pow(pos2[1]-pos1[1],2));
 	}
 
-	/*
-		Given two points in a 2D plane, returns distance between them
-		Returns: double
-	*/
-	public static double getDistance(double x1, double y1, double x2, double y2) {
-		return Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+	public static double getAngle(double[] pos1, double[] pos2) {
+		/*
+			Given two points in a 2D plane, get angle between line passing through the two points
+			and the x axis in RADIANS
+			Returns: double
+		*/
+		return Math.atan2((pos2[1] - pos1[1]),(pos2[0] - pos1[0]));
 	}
 
-	/*
-		Given two points in a 2D plane, get angle between line passing through the two points
-		and the x axis in RADIANS
-		Returns: double
-	*/
-	public static double getAngle(double x1, double y1, double x2, double y2) {
-		if (x2 == x1) {
-			return Math.PI/2;
-		}
-		return Math.atan((y2-y1)/(x2-x1));
-	}
-	
 	public static double getAngle(double v1, double v2) {
 		if (v1 == 0) {
 			return Math.PI/2;
 		}
-		return Math.atan(v2/v1);
+		return Math.atan2(v2,v1);
+	}
+
+	public static double[] getComponents(double val, double angle) {
+		/*
+		 	Given a vector and the angle it makes with x axis,
+			Returns the x and y components of the vector
+		*/
+		double[] components = new double[2];
+    components[0] = Math.cos(angle)*val;
+    components[1] = Math.sin(angle)*val;
+    return components;
 	}
 	
-	/*
-	 	Given
-	*/
-	public static double[] getComponents(double a, double tan) {
-		double[] components = new double[2];
-		double angle = Math.atan(tan);
-		components[0] = Math.cos(angle) * a;
-		components[1] = Math.sin(angle) * a;
-		return components;
-	}
 }

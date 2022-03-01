@@ -21,3 +21,8 @@ Planet motion help: [link](https://www.youtube.com/watch?v=WTLPmUHTPqo). This is
 8. Do something to update fuel level, points, distance, etc. in playframe
 9. Drawing trajectories
 10. Zooming/panning
+
+## Scale stuff
+* Position of rockets/planets --> AU
+* Timestep --> 24 hours
+* Scale --> Calculated during draw()

@@ -24,22 +24,6 @@ public class MainApp {
 		if (2):
 			choose_playername();
 			play_game();
-				if (user_input) {
-						if (fuel_available) {
-							calculate_fuel_used();
-							update_fuel_bar();
-							update_velocity();
-						}
-				}
-				for ( i in objects_in_play ) {
-						for ( j in objects_in_play ) {
-								tot_force = 0;
-								if (i != j) {
-										tot_force += i.getEffectiveForce(j);
-										i.updateVel();
-										i.updatePos();
-								}
-						}
 						check_collision();
 						if (collision) {
 								if (velocity_of_rocket_wrt_collision_obj <= acceptable && collision_obj == goal_planet) {
@@ -56,7 +40,7 @@ public class MainApp {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("GravSim");
-		
+
 		// Create GamePanel object to handle game loop
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);

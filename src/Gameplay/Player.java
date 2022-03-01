@@ -19,34 +19,39 @@ public class Player {
 	GamePanel panel;
 
 	public void setPlayerName(String name) {
-		playerName = name;
+		/*
+			Method to set player name
+		*/
+		this.playerName = name;
 	}
 
-	/*
-		Default constructor to set default player values
-	*/
 	public Player(GamePanel gp, KeyHandler kh) {
-		playerName = "USR";
-		playerPoints = 0;
-		rocket = RocketCollection.r0;
-		panel = gp;
-		handler = kh;
+		/*
+			Default constructor to set default player values
+		*/
+		this.playerName = "USR";
+		this.playerPoints = 0;
+		this.rocket = RocketCollection.r0;
+		this.panel = gp;
+		this.handler = kh;
 	}
 
-	/*
-		Constructor
-	*/
 	Player(String pName, Rocket r, GamePanel gp, KeyHandler kh) {
-		playerName = pName;
-		playerPoints = 0;
-		rocket = r;
-		panel = gp;
-		handler = kh;
+		/*
+			Constructor
+		*/
+		this.playerName = pName;
+		this.playerPoints = 0;
+		this.rocket = r;
+		this.panel = gp;
+		this.handler = kh;
 	}
-
-	//player.updatePos()
 
 	public void update() {
+		/*
+			Method to update the player's velocity based on
+			the user's key input
+		*/
 		if (handler.upPressed == true) {
 			// accelerate
 			this.rocket.accelerate();
@@ -57,9 +62,9 @@ public class Player {
 	}
 
 	public void draw(Graphics g) {
-		//g.setColor(Color.white);
-		//g.fillRect((int) rocket.pos[0],(int) rocket.pos[1], 10, 10);
-		//g.drawImage(rocket.rocket_sprite, (int)rocket.pos[0], (int)rocket.pos[1], 80, 80, null);
+		/*
+			Draw the player's rocket on the screen
+		*/
 		this.rocket.draw(g);
 	}
 }

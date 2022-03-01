@@ -61,9 +61,6 @@ public class GamePanel extends JPanel implements Runnable {
 	public GamePanel() {
 		// preferred size of game window
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		// background of game window
-		// TODO: change it to image of stars from assets
-		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		// add key event listener
 		this.addKeyListener(keyH);
@@ -75,12 +72,12 @@ public class GamePanel extends JPanel implements Runnable {
 		gameThread.start();
 	}
 
-	/*
-	Game loop
-	uses delta time: https://drewcampbell92.medium.com/understanding-delta-time-b53bf4781a03
-	*/
 	@Override
 	public void run() {
+		/*
+		Game loop
+		uses delta time: https://drewcampbell92.medium.com/understanding-delta-time-b53bf4781a03
+		*/
 
 		double drawInterval = 1000000000/FPS;
 		double delta = 0;
@@ -101,29 +98,23 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	/*
-		This method deals with updation of positions of objects every gameloop
-		player.update() updates position and velocity of the rocket
-		level.upadte() updates the position and velocity of planets
-		Returns: nothing
-	*/
 	public void update() {
-		// This method deals with updating positions of objects every game loop
+		/*
+			This method deals with updation of positions of objects every gameloop
+			player.update() updates position and velocity of the rocket
+			level.upadte() updates the position and velocity of planets
+			Returns: nothing
+		*/
 		this.player.update();
-		//System.out.println(this.player.rocket.velocity[0]+"\t"+this.player.rocket.velocity[1]);
 		this.level.update();
-		for (int i = 0; i < level.planets.length; i++) {
-			System.out.println(level.planets[i].planet_name+": "+level.planets[i].pos[0]+"\t"+level.planets[i].pos[1]);
-		}
-		System.out.println();
 	}
 
-	/*
-		This method draws objects in the game window
-		the background and play frame are drawn here, the planets and rocket
-		are rendered using their respective class methods
-	*/
 	public void paintComponent(Graphics g) {
+		/*
+			This method draws objects in the game window
+			the background and play frame are drawn here, the planets and rocket
+			are rendered using their respective class methods
+		*/
 
 		super.paintComponent(g);
 
@@ -134,6 +125,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Drawing the planets
 		for(int i = 0; i < level.planets.length; i++) {
+			//System.out.println("DRAWING:"+level.planets[i].planet_name);
 			level.planets[i].draw(g2);
 		}
 
