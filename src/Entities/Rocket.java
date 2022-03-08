@@ -8,19 +8,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-//import Physics.Physics;
+import Physics.Physics;
 
 public class Rocket extends Entity {
 	/*
 		Class Rocket defines a Rocket
 	*/
 
-	float fuel_percentage;
+	public float fuel_percentage;
 	public Image rocket_sprite;
 	Image[] rocket_sprite_accelerating = new Image[2];
 	Image[] rocket_sprite_decelerating = new Image[2];
 	float fuel_burned_per_time = (float) 0.5;
-	float force_per_fuel_burnt = 2000;
+	float force_per_fuel_burnt = 2000000;
 
 	/*
 		Constructor
@@ -32,13 +32,13 @@ public class Rocket extends Entity {
 			send those strings to the set_rocket_sprite func
 		*/
 		this.mass = mass;
-    this.name = name;
-    this.velocity = new double[2];
-    this.position = new double[2];
-    this.size = new int[2];
-    this.size[0] = size[0]; this.size[1] = size[1];
-    this.fuel_percentage = fuel_percentage;
-    this.setRocketSprite(name,name,name);
+	    this.name = name;
+	    this.velocity = new double[2];
+	    this.position = new double[2];
+	    this.size = new int[2];
+	    this.size[0] = size[0]; this.size[1] = size[1];
+	    this.fuel_percentage = fuel_percentage;
+	    this.setRocketSprite(name,name,name);
 	}
 
 	public void setFuelPercentage(float percentage) {
@@ -74,38 +74,57 @@ public class Rocket extends Entity {
 			this.rocket_sprite_decelerating[1] = img4;
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("SOMETHING WRONG HERE.");
 		}
 	}
 
 	public void accelerate() {
 		/*
 			Burn fuel and increase velocity
-			TODO: Do this
+			TODO: Debug this
 		*/
-		this.setFuelPercentage((float) (this.fuel_percentage - this.fuel_burned_per_time));
-		// The next line is only for debug.
-		// This isn't how the actual rocket will move.
-		//this.setPos(this.pos[0]+10, this.pos[1]+10);
+		if (this.fuel_percentage > this.fuel_burned_per_time) {
+			this.setFuelPercentage((float) (this.fuel_percentage - this.fuel_burned_per_time));
+
+			double vel = Physics.newVel(this.force_per_fuel_burnt,this.mass);
+			double theta = Physics.getAngle(this.velocity[0], this.velocity[1]);
+			double[] velComponents = Physics.getComponents(vel,theta);
+			this.velocity[0] += velComponents[0];
+			this.velocity[1] += velComponents[1];
+			//System.out.println(this.position[0]+"\t"+this.position[1]);
+			//System.out.println(this.fuel_percentage);
+			// The next line is only for debug.
+			// This isn't how the actual rocket will move.
+			//this.setPos(this.pos[0]+10, this.pos[1]+10);
+		}
 	}
 
 	public void decelerate() {
 		/*
 			Burn fuel and decrease velocity
-			TODO: Do this
+			TODO: Debug this
 		*/
-		this.setFuelPercentage((float) (this.fuel_percentage - this.fuel_burned_per_time));
-		// The next line is only for debug.
-		// This isn't how the actual rocket will move.
-		//this.setPos(this.pos[0]-10, this.pos[1]-10);
+		if (this.fuel_percentage > this.fuel_burned_per_time) {
+			this.setFuelPercentage((float) (this.fuel_percentage - this.fuel_burned_per_time));
+
+			double vel = -Physics.newVel(this.force_per_fuel_burnt,this.mass);
+			double theta = Physics.getAngle(this.velocity[0], this.velocity[1]);
+			double[] velComponents = Physics.getComponents(vel,theta);
+			this.velocity[0] += velComponents[0];
+			this.velocity[1] += velComponents[1];
+			// The next line is only for debug.
+			// This isn't how the actual rocket will move.
+			//this.setPos(this.pos[0]-10, this.pos[1]-10);
+		}
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics g, int offsetX, int offsetY) {
 		/*
 			Draws the rocket at its position
 			TODO: change sprite when accelerating/decelerating
 			TODO: set pos to middle of image if possible
 		*/
-		g.drawImage(this.rocket_sprite, (int)this.position[0], (int) this.position[1],80,80,null);
+		int[] newPos = new int[2];
+		newPos = Entity.getScaledPos(this.position);
+		g.drawImage(this.rocket_sprite, (newPos[0] - this.size[1]/2 - offsetX), (int)(newPos[1] - this.size[1]/2 - offsetY), (int)(this.size[0]), (int)(this.size[1]), null);
 	}
 }

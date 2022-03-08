@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,9 +41,26 @@ public class GamePanel extends JPanel implements Runnable {
 	LevelCatalogue n = new LevelCatalogue();
 	Level level = LevelCatalogue.l0;
 
+	// Fuel bar
+	int fuelBarLen = 809;
+	int fuelBarx = 13;
+	int fuelBary = 670;
+	int fuelBarHeight = 30;
+	
+	// Offsets
+	//int 
+	
+	// behavior
+	boolean planetsMove;
+	boolean rocketMoves;
+	
 	// FPS
 	int FPS = 60;
 
+	// offset
+	int offsetX = 0;
+	int offsetY = 0;
+	
 	// Background graphics
 	Image background;
 	Image playFrame;
@@ -58,8 +74,12 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	public GamePanel() {
+	public GamePanel(boolean rocketMoves, boolean planetsMove) {
 		// preferred size of game window
+		this.planetsMove = planetsMove;
+		this.rocketMoves = rocketMoves;
+		this.player.rocket.velocity = this.level.rocketVel;
+		this.player.rocket.position = this.level.rocketPos;
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setDoubleBuffered(true);
 		// add key event listener
@@ -105,8 +125,28 @@ public class GamePanel extends JPanel implements Runnable {
 			level.upadte() updates the position and velocity of planets
 			Returns: nothing
 		*/
-		this.player.update();
-		this.level.update();
+		
+		// Panning
+		if (this.keyH.wPressed == true) {
+			this.offsetY -= 10;
+		}
+		if (this.keyH.aPressed == true) {
+			this.offsetX -= 10;
+		}
+		if (this.keyH.sPressed == true) {
+			this.offsetY += 10;
+		}
+		if (this.keyH.dPressed == true) {
+			this.offsetX += 10;
+		}
+		
+		if (this.rocketMoves) {
+			this.player.update(this.level.planets);
+			//System.out.println(this.player.rocket.position[0]+"\t"+this.player.rocket.position[1]);
+		}
+		if (this.planetsMove) {
+			this.level.update();
+		}
 	}
 
 	public void paintComponent(Graphics g) {
@@ -126,12 +166,13 @@ public class GamePanel extends JPanel implements Runnable {
 		// Drawing the planets
 		for(int i = 0; i < level.planets.length; i++) {
 			//System.out.println("DRAWING:"+level.planets[i].planet_name);
-			level.planets[i].draw(g2);
+			this.level.planets[i].draw(g2, offsetX, offsetY);
 		}
 
-		// Drawing the players
-		player.draw(g2);
-
+		// Drawing the player
+		this.player.draw(g2, this.fuelBarx, this.fuelBary, this.fuelBarHeight, this.fuelBarLen, offsetX, offsetY);
+		
+		
 		// Drawing the console skeleton
 		g.drawImage(this.playFrame, 0, 0, this);
 

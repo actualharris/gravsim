@@ -9,8 +9,8 @@ public class Physics {
 	/* Universal Gravitation Constant */
 	private static double univGravConst = 6.67408e-11;
 	public static double AstronomicalUnit = 149.6e6 * 1000;
-	private static double timestep = 3600 * 24; // 1 day
-	public static double scale = 250/AstronomicalUnit;
+	private static double timestep = 3600 * 6; // 1/4 day per iteration => 15 days per second
+	public static double scale = 100/AstronomicalUnit;
 
 	/*
 		Method to calculate the gravitational force
@@ -58,11 +58,8 @@ public class Physics {
 		return Math.atan2((pos2[1] - pos1[1]),(pos2[0] - pos1[0]));
 	}
 
-	public static double getAngle(double v1, double v2) {
-		if (v1 == 0) {
-			return Math.PI/2;
-		}
-		return Math.atan2(v2,v1);
+	public static double getAngle(double vx, double vy) {
+		return Math.atan2(vy,vx);
 	}
 
 	public static double[] getComponents(double val, double angle) {
@@ -75,5 +72,5 @@ public class Physics {
     components[1] = Math.sin(angle)*val;
     return components;
 	}
-	
+
 }

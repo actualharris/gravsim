@@ -10,7 +10,7 @@ public class LevelCatalogue {
 
 	public static Level l0;
 
-	private static Level setLevel(Planet[] planets, double[][] positions, double[][] velocities) {
+	private static Level setLevel(Planet[] planets, double[][] positions, double[][] velocities, double[] rpos, double[] rvel) {
 		/*
 			Create a new levvel object
 			Initiallze it with the provided planets and their initial positions and velocities
@@ -22,13 +22,18 @@ public class LevelCatalogue {
 			planets[i].setVel(velocities[i][0], velocities[i][1]);
 		}
 		l.addPlanets(planets);
+		l.rocketPos = rpos;
+		l.rocketVel = rvel;
 		return l;
 	}
 
 	public LevelCatalogue() {
-		Planet[] plist = new Planet[] {PlanetCollection.p0, PlanetCollection.p1};
-		double[][] positions = new double[][] {{2, 2},{1,2}};
-		double[][] velocities = new double[][] {{0,0},{0,-30000}};
-		this.l0 = setLevel(plist, positions, velocities);
+		Planet[] plist = new Planet[] {PlanetCollection.p0, PlanetCollection.p1, PlanetCollection.p2};
+		//Planet[] plist = new Planet[] {PlanetCollection.p1};
+		double[][] positions = new double[][] {{2, 2},{1,2},{1,1.52}};
+		double[][] velocities = new double[][] {{0,0},{0,-30000},{0,-24070}};
+		double[] rvel = new double[] {0,7778};
+		double[] rpos = new double[] {0,((2*149.6e6 * 1000))};
+		LevelCatalogue.l0 = setLevel(plist, positions, velocities,rpos,rvel);
 	}
 }

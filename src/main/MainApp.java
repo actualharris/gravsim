@@ -42,7 +42,7 @@ public class MainApp {
 		window.setTitle("GravSim");
 
 		// Create GamePanel object to handle game loop
-		GamePanel gamePanel = new GamePanel();
+		GamePanel gamePanel = new GamePanel(true, true);
 		window.add(gamePanel);
 
 		window.pack();
