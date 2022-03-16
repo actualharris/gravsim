@@ -53,7 +53,11 @@ public abstract class Entity {
 		double[] tmp_point = new double[2];
 		tmp_point[0] = point[0]; tmp_point[1] = point[1];
 		this.pathTravelled.offer(point);
-		System.out.println("ENTITY: "+this.pathTravelled.size());
+		//System.out.println("ENTITY: "+this.pathTravelled.size());
 	}
 
+	public static int getScaledSize(double size_) {
+		return (int)(size_*Physics.scale*Physics.scaleFactor);
+	}
+	
 }

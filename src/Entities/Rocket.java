@@ -1,7 +1,12 @@
 package Entities;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +81,26 @@ public class Rocket extends Entity {
 			e.printStackTrace();
 		}
 	}
+	
+	public BufferedImage rotate(BufferedImage image, double angle) {
+	    double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
+	    int w = image.getWidth(), h = image.getHeight();
+	    int neww = (int)Math.floor(w*cos+h*sin), newh = (int) Math.floor(h * cos + w * sin);
+	    GraphicsConfiguration gc = getDefaultConfiguration();
+	    BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
+	    Graphics2D g = result.createGraphics();
+	    g.translate((neww - w) / 2, (newh - h) / 2);
+	    g.rotate(angle, w / 2, h / 2);
+	    g.drawRenderedImage(image, null);
+	    g.dispose();
+	    return result;
+	}
+
+	private static GraphicsConfiguration getDefaultConfiguration() {
+	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice gd = ge.getDefaultScreenDevice();
+	    return gd.getDefaultConfiguration();
+	}
 
 	public void accelerate() {
 		/*
@@ -90,6 +115,8 @@ public class Rocket extends Entity {
 			double[] velComponents = Physics.getComponents(vel,theta);
 			this.velocity[0] += velComponents[0];
 			this.velocity[1] += velComponents[1];
+			//this.position[0] += Physics.newPos(this.velocity[0]);
+			//this.position[1] += Physics.newPos(this.velocity[1]);
 			//System.out.println(this.position[0]+"\t"+this.position[1]);
 			//System.out.println(this.fuel_percentage);
 			// The next line is only for debug.
@@ -111,6 +138,8 @@ public class Rocket extends Entity {
 			double[] velComponents = Physics.getComponents(vel,theta);
 			this.velocity[0] += velComponents[0];
 			this.velocity[1] += velComponents[1];
+			//this.position[0] += Physics.newPos(this.velocity[0]);
+			//this.position[1] += Physics.newPos(this.velocity[1]);
 			// The next line is only for debug.
 			// This isn't how the actual rocket will move.
 			//this.setPos(this.pos[0]-10, this.pos[1]-10);
@@ -123,8 +152,12 @@ public class Rocket extends Entity {
 			TODO: change sprite when accelerating/decelerating
 			TODO: set pos to middle of image if possible
 		*/
+		
+		double theta = Physics.getAngle(this.velocity[0], this.velocity[1]);
+		BufferedImage updatedSprite = this.rotate((BufferedImage) this.rocket_sprite, theta);
+		
 		int[] newPos = new int[2];
 		newPos = Entity.getScaledPos(this.position);
-		g.drawImage(this.rocket_sprite, (newPos[0] - this.size[1]/2 - offsetX), (int)(newPos[1] - this.size[1]/2 - offsetY), (int)(this.size[0]), (int)(this.size[1]), null);
+		g.drawImage(updatedSprite, (newPos[0] - this.size[1]/2 - offsetX), (int)(newPos[1] - this.size[1]/2 - offsetY), (int)(this.size[0]), (int)(this.size[1]), null);
 	}
 }

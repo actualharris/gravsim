@@ -15,6 +15,8 @@ import Gameplay.Level;
 import Gameplay.LevelCatalogue;
 import Gameplay.Player;
 
+import Physics.Physics;
+
 public class GamePanel extends JPanel implements Runnable {
 	/*
 		Class to handle game loop
@@ -139,6 +141,14 @@ public class GamePanel extends JPanel implements Runnable {
 		if (this.keyH.dPressed == true) {
 			this.offsetX += 10;
 		}
+		if (this.keyH.zInPressed == true) {
+			Physics.scaleFactor += 10;
+			Physics.updateScale();
+		}
+		if (this.keyH.zOutPressed == true) {
+			Physics.scaleFactor -= 10;
+			Physics.updateScale();
+		}
 		
 		if (this.rocketMoves) {
 			this.player.update(this.level.planets);
@@ -166,7 +176,7 @@ public class GamePanel extends JPanel implements Runnable {
 		// Drawing the planets
 		for(int i = 0; i < level.planets.length; i++) {
 			//System.out.println("DRAWING:"+level.planets[i].planet_name);
-			this.level.planets[i].draw(g2, offsetX, offsetY);
+			this.level.planets[i].draw(g2, this.offsetX, this.offsetY, this.screenWidth, this.screenHeight);
 		}
 
 		// Drawing the player

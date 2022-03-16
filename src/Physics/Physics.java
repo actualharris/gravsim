@@ -9,8 +9,9 @@ public class Physics {
 	/* Universal Gravitation Constant */
 	private static double univGravConst = 6.67408e-11;
 	public static double AstronomicalUnit = 149.6e6 * 1000;
-	private static double timestep = 3600 * 6; // 1/4 day per iteration => 15 days per second
-	public static double scale = 100/AstronomicalUnit;
+	private static double timestep = 3600 * 1; // 1/4 day per iteration => 15 days per second
+	public static double scaleFactor = 100;
+	public static double scale = scaleFactor/AstronomicalUnit;
 
 	/*
 		Method to calculate the gravitational force
@@ -71,6 +72,10 @@ public class Physics {
     components[0] = Math.cos(angle)*val;
     components[1] = Math.sin(angle)*val;
     return components;
+	}
+	
+	public static void updateScale() {
+		scale = scaleFactor/AstronomicalUnit;
 	}
 
 }

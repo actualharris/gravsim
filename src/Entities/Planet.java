@@ -1,11 +1,9 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
@@ -50,15 +48,19 @@ public class Planet extends Entity{
 		}
 	}
 
-	public void draw(Graphics g, int offsetX, int offsetY) {
+	public void draw(Graphics g, int offsetX, int offsetY, int screenW, int screenH) {
 		/*
 			Draws the planet graphic at the planet's position
 		*/
-		// drawing trail
-		
+		// TODO:drawing trail
+				
 		int[] newPos = new int[2];
 		newPos = Entity.getScaledPos(this.position);
-		g.drawImage(this.planet_sprite, (int)(newPos[0] - this.size[1]/2 - offsetX), (int)(newPos[1] - this.size[1]/2 - offsetY), (int)(this.size[0]), (int)(this.size[1]), null);
+		
+	    int size_ = Entity.getScaledSize(this.planet_radius*2);
+	    size_ = Math.max(size_,10);
+		//g.drawImage(this.planet_sprite, (int)(newPos[0] - this.size[1]/2 - offsetX), (int)(newPos[1] - this.size[1]/2 - offsetY), (int)(this.size[0]), (int)(this.size[1]), null);
+		g.drawImage(this.planet_sprite, (int)(newPos[0] - size_/2 - offsetX), (int)(newPos[1] - size_/2 - offsetY), (int)(size_), (int)(size_), null);		
 	}
 
 }

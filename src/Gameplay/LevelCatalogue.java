@@ -33,7 +33,7 @@ public class LevelCatalogue {
 		double[][] positions = new double[][] {{2, 2},{1,2},{1,1.52}};
 		double[][] velocities = new double[][] {{0,0},{0,-30000},{0,-24070}};
 		double[] rvel = new double[] {0,7778};
-		double[] rpos = new double[] {0,((2*149.6e6 * 1000))};
+		double[] rpos = new double[] {(1*148.6e6 * 1000),(2*149.6e6 * 1000)};
 		LevelCatalogue.l0 = setLevel(plist, positions, velocities,rpos,rvel);
 	}
 }
