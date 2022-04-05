@@ -42,7 +42,6 @@ public class gameplayScreen {
 	}
 	
 	public void renderBackground(Graphics2D g) {
-		/*TODO: Render the background*/
 		g.drawImage(background, 0, 0, null);
 	}
 	
@@ -51,8 +50,11 @@ public class gameplayScreen {
 	}
 	
 	public void renderPlayFrame(Graphics2D g) {
-		/*TODO: Render the background*/
 		g.drawImage(playFrame, 0, 0, null);
+	}
+	
+	public void renderPlayerName(String name, Graphics2D g) {
+		/*TODO: Render name of player on screen*/
 	}
 	
 }
